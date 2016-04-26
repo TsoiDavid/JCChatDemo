@@ -30,10 +30,8 @@
 		843008581CCDEECB00BCB77C /* 0.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 843008461CCDEECB00BCB77C /* 0.jpeg */; };
 		843008591CCDEECB00BCB77C /* 1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 843008471CCDEECB00BCB77C /* 1.jpeg */; };
 		8430085A1CCDEECB00BCB77C /* headImage.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 843008481CCDEECB00BCB77C /* headImage.jpeg */; };
-		8430085E1CCDF4A400BCB77C /* ForumKeyBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8430085C1CCDF4A400BCB77C /* ForumKeyBoardView.m */; };
-		8430085F1CCDF4A400BCB77C /* ForumKeyBoardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8430085D1CCDF4A400BCB77C /* ForumKeyBoardView.xib */; };
-		843008631CCDF57200BCB77C /* LPlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 843008621CCDF57200BCB77C /* LPlaceholderTextView.m */; };
 		8430086D1CCE0D2900BCB77C /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8430086B1CCE0D2900BCB77C /* RootViewController.m */; };
+		84432FB11CCF7001002043D6 /* JCChatToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 84432FB01CCF7001002043D6 /* JCChatToolBar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,13 +61,10 @@
 		843008461CCDEECB00BCB77C /* 0.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 0.jpeg; sourceTree = "<group>"; };
 		843008471CCDEECB00BCB77C /* 1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpeg; sourceTree = "<group>"; };
 		843008481CCDEECB00BCB77C /* headImage.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = headImage.jpeg; sourceTree = "<group>"; };
-		8430085B1CCDF4A400BCB77C /* ForumKeyBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForumKeyBoardView.h; sourceTree = "<group>"; };
-		8430085C1CCDF4A400BCB77C /* ForumKeyBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForumKeyBoardView.m; sourceTree = "<group>"; };
-		8430085D1CCDF4A400BCB77C /* ForumKeyBoardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForumKeyBoardView.xib; sourceTree = "<group>"; };
-		843008611CCDF57200BCB77C /* LPlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPlaceholderTextView.h; sourceTree = "<group>"; };
-		843008621CCDF57200BCB77C /* LPlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPlaceholderTextView.m; sourceTree = "<group>"; };
 		8430086A1CCE0D2900BCB77C /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		8430086B1CCE0D2900BCB77C /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		84432FAF1CCF7001002043D6 /* JCChatToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCChatToolBar.h; sourceTree = "<group>"; };
+		84432FB01CCF7001002043D6 /* JCChatToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCChatToolBar.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,10 +123,8 @@
 		843008311CCDCD2200BCB77C /* JCChat */ = {
 			isa = PBXGroup;
 			children = (
-				843008601CCDF57200BCB77C /* LPlaceholderTextView */,
-				8430085B1CCDF4A400BCB77C /* ForumKeyBoardView.h */,
-				8430085C1CCDF4A400BCB77C /* ForumKeyBoardView.m */,
-				8430085D1CCDF4A400BCB77C /* ForumKeyBoardView.xib */,
+				84432FAF1CCF7001002043D6 /* JCChatToolBar.h */,
+				84432FB01CCF7001002043D6 /* JCChatToolBar.m */,
 			);
 			path = JCChat;
 			sourceTree = "<group>";
@@ -167,15 +160,6 @@
 				843008481CCDEECB00BCB77C /* headImage.jpeg */,
 			);
 			path = photo;
-			sourceTree = "<group>";
-		};
-		843008601CCDF57200BCB77C /* LPlaceholderTextView */ = {
-			isa = PBXGroup;
-			children = (
-				843008611CCDF57200BCB77C /* LPlaceholderTextView.h */,
-				843008621CCDF57200BCB77C /* LPlaceholderTextView.m */,
-			);
-			path = LPlaceholderTextView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,7 +233,6 @@
 				843008491CCDEECB00BCB77C /* chat_animation1.png in Resources */,
 				8430084A1CCDEECB00BCB77C /* chat_animation2.png in Resources */,
 				8430084D1CCDEECB00BCB77C /* chat_animation_white2.png in Resources */,
-				8430085F1CCDF4A400BCB77C /* ForumKeyBoardView.xib in Resources */,
 				843008511CCDEECB00BCB77C /* Chat_record_circle.png in Resources */,
 				843008251CCDC86000BCB77C /* Main.storyboard in Resources */,
 				843008531CCDEECB00BCB77C /* Chat_take_picture.png in Resources */,
@@ -270,8 +253,7 @@
 			files = (
 				8430081F1CCDC86000BCB77C /* AppDelegate.m in Sources */,
 				8430081C1CCDC86000BCB77C /* main.m in Sources */,
-				843008631CCDF57200BCB77C /* LPlaceholderTextView.m in Sources */,
-				8430085E1CCDF4A400BCB77C /* ForumKeyBoardView.m in Sources */,
+				84432FB11CCF7001002043D6 /* JCChatToolBar.m in Sources */,
 				8430086D1CCE0D2900BCB77C /* RootViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

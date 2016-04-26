@@ -7,11 +7,11 @@
 //
 
 #import "RootViewController.h"
-#import "ForumKeyBoardView.h"
+#import "JCChatToolBar.h"
 
-static const CGFloat keyboardHeight = 49;
+static const CGFloat keyboardHeight = 50;
 
-@interface RootViewController ()<UITableViewDelegate,UITableViewDataSource,ForumKeyBoardViewDelegate>
+@interface RootViewController ()<UITableViewDelegate,UITableViewDataSource,JCChatToolBarDelegate>
 {
     CGFloat textViewOldHeight;
     NSInteger navHeight;
@@ -19,7 +19,7 @@ static const CGFloat keyboardHeight = 49;
     BOOL _wasKeyboardManagerEnabled;
     BOOL isKeyboardShow;
 }
-@property (strong, nonatomic) ForumKeyBoardView *keyboardView;
+@property (strong, nonatomic) JCChatToolBar *chatToolBar;
 @property (strong, nonatomic) UITableView *chatTableView;
 @property (strong, nonatomic) NSMutableArray *dataArray;
 
@@ -34,7 +34,7 @@ static const CGFloat keyboardHeight = 49;
     for (int i = 0; i < 15; i ++) {
         [_dataArray addObject:[NSString stringWithFormat:@"这是第%d行",i]];
     }
-    
+  
     [self setUI];
     //注册键盘通知监听
     [self registerNotifications];
@@ -55,32 +55,35 @@ static const CGFloat keyboardHeight = 49;
     _chatTableView.dataSource = self;
     [self.view addSubview:_chatTableView];
     
-    _keyboardView = [ForumKeyBoardView instanceView];
-    _keyboardView.delegate = self;
-    _keyboardView.backgroundColor = [UIColor yellowColor];
-    _keyboardView.frame = CGRectMake(0,self.view.frame.size.height - keyboardHeight, self.view.frame.size.width, keyboardHeight);
-    [self.view addSubview:_keyboardView];
+    _chatToolBar = [[JCChatToolBar alloc]initWithFrame:CGRectMake(0,self.view.frame.size.height - keyboardHeight, self.view.frame.size.width, keyboardHeight)];
+    _chatToolBar.delegate = self;
+    _chatToolBar.backgroundColor = [UIColor yellowColor];
+   
+    [self.view addSubview:_chatToolBar];
 }
 #pragma mark *********键盘操作***********
 
 //当textView内容发送变化，调整高度。
-- (void)changeTextViewFrameWhentextViewDidChangeWithSize:(CGSize)newSize {
-    
-   
-//        CGRect rect = _keyboardView.frame;
-//        rect.origin.y = self.view.frame.size.height - keyboardhight - newSize.height;
-//        rect.size.height = newSize.height;
-//        _keyboardView.frame = rect;
+- (void)textViewChangeWithSize:(CGSize)size Frame:(CGRect)frame upY:(CGFloat)y{
+    [UIView animateWithDuration:0.2 animations:^{
+        self.chatToolBar.textView.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, size.height);
+        CGRect rect =  self.chatToolBar.frame;
+        rect.size.height = size.height + y;
+        rect.origin.y = self.view.frame.size.height - keyboardhight - rect.size.height;
+        self.chatToolBar.frame = rect;
+    }];
+
+}
+//- (void)changeTextViewFrameWhentextViewDidChangeWithSize:(CGSize)newSize {
+//    
+//    CGRect rect = _keyboardView.frame;
+//    rect.origin.y = self.view.frame.size.height - keyboardhight - newSize.height - 10 ;
+//    rect.size.height = newSize.height + 10;
+//    _keyboardView.frame = rect;
 //    
 //    [self viewWillLayoutSubviews];
-   
-//    CGRect rect = _keyboardView.frame;
-//    rect.origin.y = self.view.frame.size.height - keyboardhight - rect.size.height;
-//    _keyboardView.frame = rect;
-//    [_keyboardView mas_updateConstraints:^(MASConstraintMaker *make) {
-//        make.height.mas_equalTo(@(newSize.height + 10));
-//    }];
-}
+//   
+//}
 - (void)registerNotifications
 {
     //使用NSNotificationCenter 鍵盤出現時
@@ -118,7 +121,7 @@ static const CGFloat keyboardHeight = 49;
     [UIView animateKeyframesWithDuration:0 delay:0 options:UIViewKeyframeAnimationOptionLayoutSubviews animations:^{
 //        _chatTableView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - keyboardHeight - keyboardHight);
         _chatTableView.transform = CGAffineTransformMakeTranslation(0, -keyboardHight);
-        _keyboardView.transform = CGAffineTransformMakeTranslation(0, -keyboardHight);
+        _chatToolBar.transform = CGAffineTransformMakeTranslation(0, -keyboardHight);
         [self tableViewScrollToBottom];
     } completion:^(BOOL finished) {
         
@@ -146,14 +149,14 @@ static const CGFloat keyboardHeight = 49;
     [UIView animateKeyframesWithDuration:0 delay:0 options:UIViewKeyframeAnimationOptionLayoutSubviews animations:^{
 //        _chatTableView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - keyboardHeight);
         _chatTableView.transform = CGAffineTransformIdentity;
-        _keyboardView.transform = CGAffineTransformIdentity;
+        _chatToolBar.transform = CGAffineTransformIdentity;
         
     } completion:^(BOOL finished) {
         
     }];
 }
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    [_keyboardView.contenTextView resignFirstResponder];
+    [_chatToolBar.textView resignFirstResponder];
 }
 #pragma mark - tableViewDelegate 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
