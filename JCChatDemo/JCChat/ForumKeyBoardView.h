@@ -20,6 +20,7 @@
 +(ForumKeyBoardView *)instanceView;
 
 @property (weak, nonatomic) IBOutlet UITextView *contenTextView;
+@property (assign, nonatomic) CGFloat superViewHeight;
 
 @property (weak,nonatomic) id<ForumKeyBoardViewDelegate> delegate;
 @end

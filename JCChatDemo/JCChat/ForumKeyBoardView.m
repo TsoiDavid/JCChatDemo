@@ -6,6 +6,10 @@
 //  Copyright © 2015年 HuangZhenXiang. All rights reserved.
 //
 
+#define kMaxHeight 60.0f
+#define kMinHeight 45.0f
+#define kFunctionViewHeight 210.0f
+
 #import "ForumKeyBoardView.h"
 
 @interface ForumKeyBoardView()
@@ -58,34 +62,54 @@
      NSNumber *count = @((labelHeight) / self.testLabel.font.lineHeight);
      NSLog(@"共 %td 行", [count integerValue]);
      */
-    CGFloat fixedWidth = textView.frame.size.width;
-    //MAXFLOAT 最大浮点数
-    CGSize newSize = [textView sizeThatFits:CGSizeMake(fixedWidth, MAXFLOAT)];
-    CGRect newFrame = textView.frame;
-    //fmaxf 求最大值函数
-    newFrame.size = CGSizeMake(fmaxf(newSize.width, fixedWidth), newSize.height);
-    //文字行数
-    NSNumber *count = @((newSize.height) / self.contenTextView.font.lineHeight);
+//    CGFloat fixedWidth = textView.frame.size.width;
+//    //MAXFLOAT 最大浮点数
+//    CGSize newSize = [textView sizeThatFits:CGSizeMake(fixedWidth, MAXFLOAT)];
+//    CGRect newFrame = textView.frame;
+//    //fmaxf 求最大值函数
+//    newFrame.size = CGSizeMake(fmaxf(newSize.width, fixedWidth), newSize.height);
+//    //文字行数
+//    NSNumber *count = @((newSize.height) / self.contenTextView.font.lineHeight);
+//    
+//    if (currentLine == count.integerValue) {return;};
+//    
+//    if (count.integerValue >= 1  && count.integerValue <= 3) {
+//        currentLine = count.integerValue;
+//        
+//        if (count.integerValue == 1) {
+//            newSize.height = textViewOldHeight + 10;
+//        }
+//        //文字行数1-3行内高度变化
+//        CGRect rect = self.contenTextView.frame;
+//        
+//        NSLog(@"未变之前的size ==== %@",NSStringFromCGRect(rect));
+//        rect.size.height = newSize.height;
+//        self.contenTextView.frame = rect;
+//        self.contenTextView.contentSize = newSize;
+//        NSLog(@"改变之后的size ==== %@",NSStringFromCGRect(rect));
+//        //回调通知keyboardView的contentextView高度改变。
+//        [self.delegate changeTextViewFrameWhentextViewDidChangeWithSize:newSize];
+//    }
     
-    if (currentLine == count.integerValue) {return;};
+    [self.contenTextView flashScrollIndicators];   // 闪动滚动条
     
-    if (count.integerValue >= 1  && count.integerValue <= 3) {
-        currentLine = count.integerValue;
+    static CGFloat maxHeight = 130.0f;
+    CGRect frame = self.contenTextView.frame;
+    CGSize constraintSize = CGSizeMake(frame.size.width, MAXFLOAT);
+    CGSize size = [textView sizeThatFits:constraintSize];
+    if (size.height >= maxHeight)
+    {
+        size.height = maxHeight;
+        self.contenTextView.scrollEnabled = YES;   // 允许滚动
         
-        if (count.integerValue == 1) {
-            newSize.height = textViewOldHeight + 10;
-        }
-        //文字行数1-3行内高度变化
-        CGRect rect = self.contenTextView.frame;
-        
-        NSLog(@"未变之前的size ==== %@",NSStringFromCGRect(rect));
-        rect.size.height = newSize.height;
-        self.contenTextView.frame = rect;
-        self.contenTextView.contentSize = newSize;
-        NSLog(@"改变之后的size ==== %@",NSStringFromCGRect(rect));
-        //回调通知keyboardView的contentextView高度改变。
-        [self.delegate changeTextViewFrameWhentextViewDidChangeWithSize:newSize];
     }
+    else
+    {
+        self.contenTextView.scrollEnabled = NO;    // 不允许滚动，当textview的大小足以容纳它的text的时候，需要设置scrollEnabed为NO，否则会出现光标乱滚动的情况
+    }
+    self.contenTextView.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, size.height);
+   
+    
    
 }
 

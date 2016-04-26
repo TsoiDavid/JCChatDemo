@@ -67,12 +67,12 @@ static const CGFloat keyboardHeight = 49;
 - (void)changeTextViewFrameWhentextViewDidChangeWithSize:(CGSize)newSize {
     
    
-        CGRect rect = _keyboardView.frame;
-        rect.origin.y = self.view.frame.size.height - keyboardhight - newSize.height;
-        rect.size.height = newSize.height;
-        _keyboardView.frame = rect;
-    
-    [self viewWillLayoutSubviews];
+//        CGRect rect = _keyboardView.frame;
+//        rect.origin.y = self.view.frame.size.height - keyboardhight - newSize.height;
+//        rect.size.height = newSize.height;
+//        _keyboardView.frame = rect;
+//    
+//    [self viewWillLayoutSubviews];
    
 //    CGRect rect = _keyboardView.frame;
 //    rect.origin.y = self.view.frame.size.height - keyboardhight - rect.size.height;
