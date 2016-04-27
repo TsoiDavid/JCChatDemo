@@ -56,6 +56,7 @@ static const CGFloat keyboardHeight = 50;
     [self.view addSubview:_chatTableView];
     
     _chatToolBar = [[JCChatToolBar alloc]initWithFrame:CGRectMake(0,self.view.frame.size.height - keyboardHeight, self.view.frame.size.width, keyboardHeight)];
+//    _chatToolBar.rightButtonImageName = @"Chat_take_picture";
     _chatToolBar.delegate = self;
     _chatToolBar.backgroundColor = [UIColor yellowColor];
    
@@ -64,9 +65,9 @@ static const CGFloat keyboardHeight = 50;
 #pragma mark *********键盘操作***********
 
 //当textView内容发送变化，调整高度。
-- (void)textViewChangeWithSize:(CGSize)size Frame:(CGRect)frame upY:(CGFloat)y{
+- (void)textViewChangeWithSize:(CGSize)size Frame:(CGRect)frame MoveUpY:(CGFloat)y {
     [UIView animateWithDuration:0.2 animations:^{
-        self.chatToolBar.textView.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, size.height);
+//        self.chatToolBar.textView.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, size.height);
         CGRect rect =  self.chatToolBar.frame;
         rect.size.height = size.height + y;
         rect.origin.y = self.view.frame.size.height - keyboardhight - rect.size.height;
@@ -74,16 +75,7 @@ static const CGFloat keyboardHeight = 50;
     }];
 
 }
-//- (void)changeTextViewFrameWhentextViewDidChangeWithSize:(CGSize)newSize {
-//    
-//    CGRect rect = _keyboardView.frame;
-//    rect.origin.y = self.view.frame.size.height - keyboardhight - newSize.height - 10 ;
-//    rect.size.height = newSize.height + 10;
-//    _keyboardView.frame = rect;
-//    
-//    [self viewWillLayoutSubviews];
-//   
-//}
+
 - (void)registerNotifications
 {
     //使用NSNotificationCenter 鍵盤出現時
