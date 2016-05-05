@@ -11,7 +11,7 @@
 
 static const CGFloat keyboardHeight = 50;
 
-@interface RootViewController ()<UITableViewDelegate,UITableViewDataSource,JCChatToolBarDelegate>
+@interface RootViewController ()<UITableViewDelegate,UITableViewDataSource,JCChatToolBarDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate>
 {
     CGFloat textViewOldHeight;
     NSInteger navHeight;
@@ -62,19 +62,125 @@ static const CGFloat keyboardHeight = 50;
    
     [self.view addSubview:_chatToolBar];
 }
-#pragma mark *********键盘操作***********
-
+#pragma mark - 键盘回调
 //当textView内容发送变化，调整高度。
 - (void)textViewChangeWithSize:(CGSize)size Frame:(CGRect)frame MoveUpY:(CGFloat)y {
     [UIView animateWithDuration:0.2 animations:^{
-//        self.chatToolBar.textView.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, size.height);
+        //        self.chatToolBar.textView.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, size.height);
         CGRect rect =  self.chatToolBar.frame;
         rect.size.height = size.height + y;
         rect.origin.y = self.view.frame.size.height - keyboardhight - rect.size.height;
         self.chatToolBar.frame = rect;
     }];
-
+    
 }
+
+- (void)clickPhotoButton {
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                             delegate:self
+                                                    cancelButtonTitle:@"取消"
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:@"拍照", @"从相册选取", nil];
+    [actionSheet showInView:self.view];
+
+    
+//    UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+//    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+//    //设置代理
+//    imagePicker.delegate = self;
+//    //允许编辑弹框
+//    imagePicker.allowsEditing = YES;
+//    //是用手机相册来获取图片的
+//    imagePicker.sourceType = sourceType;
+//    //模态推出pickViewController
+//    [self presentViewController:imagePicker animated:YES completion:nil];
+}
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    //NSLog(@"buttonIndex=%d",buttonIndex);
+    
+    switch (buttonIndex) {
+        case 0:
+            //拍照
+            [self takePhoto];
+            break;
+        case 1:
+            //从相册选择
+            [self LocalPhoto];
+            break;
+        default:
+            break;
+    }
+}
+
+//从相册选择
+-(void)LocalPhoto{
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    //资源类型为图片库
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    [self presentViewController:picker animated:YES completion:nil];
+    
+}
+
+//拍照
+-(void)takePhoto{
+    //资源类型为照相机
+    UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
+    //判断是否有相机
+    if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]){
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        picker.delegate = self;
+        //设置拍照后的图片可被编辑
+        picker.allowsEditing = YES;
+        //资源类型为照相机
+        picker.sourceType = sourceType;
+        [self presentViewController:picker animated:YES completion:nil];
+        
+    }else {
+        //NSLog(@"该设备无摄像头");
+    }
+}
+#pragma 用户选择好图片后的回调函数
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    //[picker release];
+    
+    if (picker.sourceType==UIImagePickerControllerSourceTypeCamera) {
+        
+        //保存图片到相册
+        UIImage *tempSaveImage=[info objectForKey:@"UIImagePickerControllerEditedImage"];
+//        UIImageWriteToSavedPhotosAlbum(tempSaveImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    }
+    
+    UIImage *image= [info objectForKey:@"UIImagePickerControllerEditedImage"];
+    
+//    if (image != nil) {
+//        //图片显示在界面上
+//        //NSLog(@"imagesize w=%f,h=%f",image.size.width,image.size.height);
+//        
+//        if (image.size.width > 1023) {
+//            
+//            
+//            image = [image scaleToSize:CGSizeMake(640, 640)];
+//            NSData *imageData=UIImageJPEGRepresentation(image, 0.8);
+//            image=[UIImage imageWithData:imageData];
+//        }
+//        
+//        
+//        
+//    }
+//    [self.portraitView.imageView setImage:image];
+//    self.selectedImage=image;
+    
+    
+    
+}
+
+#pragma mark *********键盘操作***********
 
 - (void)registerNotifications
 {

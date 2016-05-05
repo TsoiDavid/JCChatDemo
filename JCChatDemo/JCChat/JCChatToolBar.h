@@ -20,7 +20,7 @@
 @required
 //告诉控制器要修改toolbar大小位置回调
 - (void)textViewChangeWithSize:(CGSize)size Frame:(CGRect)frame MoveUpY:(CGFloat)y;
-
+- (void)clickPhotoButton;
 @end
 
 @interface JCChatToolBar : UIView

@@ -105,6 +105,8 @@ static const CGFloat buttonWidth = 45;
         case 11:
         {
             NSLog(@"11");
+            [_textView resignFirstResponder];
+            [self.delegate clickPhotoButton];
             break;
         }
         default:
